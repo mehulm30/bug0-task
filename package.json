@@ -3,16 +3,20 @@
   "version": "1.0.0",
   "description": "Playwright tests for automationexercise.com — TC1 to TC5",
   "scripts": {
-    "test":         "playwright test",
-    "test:headed":  "playwright test --headed",
-    "test:tc1":     "playwright test --grep \"TC1\"",
-    "test:tc2":     "playwright test --grep \"TC2\"",
-    "test:tc3":     "playwright test --grep \"TC3\"",
-    "test:tc4":     "playwright test --grep \"TC4\"",
-    "test:tc5":     "playwright test --grep \"TC5\"",
-    "report":       "playwright show-report"
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:tc1": "playwright test --grep \"TC1\"",
+    "test:tc2": "playwright test --grep \"TC2\"",
+    "test:tc3": "playwright test --grep \"TC3\"",
+    "test:tc4": "playwright test --grep \"TC4\"",
+    "test:tc5": "playwright test --grep \"TC5\"",
+    "report": "playwright show-report"
   },
   "devDependencies": {
     "@playwright/test": "^1.44.0"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "passmark": "^1.0.10"
   }
 }
