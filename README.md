@@ -1,4 +1,4 @@
-# 🎭 Automation Exercise - Playwright Test Suite
+# Automation Exercise - Playwright Test Suite
 
 Automated end-to-end tests for [automationexercise.com](https://automationexercise.com) using [Playwright](https://playwright.dev/).
 
