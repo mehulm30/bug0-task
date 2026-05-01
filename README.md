@@ -33,6 +33,54 @@ BUG0/
 
 ---
 
+## 🔢 Test Execution Sequence
+
+Tests are written and **intentionally ordered** in the file to avoid dependency conflicts. The execution order is:
+
+```
+Step 1 ──► TC1: Register User
+               │
+               │  Creates a brand-new account using a unique email
+               │  Verifies account creation → then deletes the account
+               ▼
+Step 2 ──► TC3: Login with incorrect email and password
+               │
+               │  Uses wrong credentials → verifies error message
+               │  Does NOT touch the shared EXISTING_USER account
+               ▼
+Step 3 ──► TC4: Logout User
+               │
+               │  Logs in with EXISTING_USER → verifies logout
+               │  Account is still intact after this step ✅
+               ▼
+Step 4 ──► TC5: Register with existing email
+               │
+               │  Tries to sign up using EXISTING_USER's email
+               │  Verifies duplicate email error message
+               │  Account is still intact after this step ✅
+               ▼
+Step 5 ──► TC2: Login with correct email and password  ⚠️ RUNS LAST
+               │
+               │  Logs in with EXISTING_USER credentials
+               └─ Deletes the account at the end ❌
+                  (This is why TC2 must always be the final test)
+```
+
+### ⚠️ Why This Order Matters
+
+| Step | TC  | Uses `EXISTING_USER`? | Deletes Account? |
+|------|-----|-----------------------|------------------|
+| 1    | TC1 | ❌ No (own unique email) | ✅ Yes (its own) |
+| 2    | TC3 | ❌ No (wrong fake email) | ❌ No            |
+| 3    | TC4 | ✅ Yes                  | ❌ No            |
+| 4    | TC5 | ✅ Yes (email only)     | ❌ No            |
+| 5    | TC2 | ✅ Yes                  | ✅ Yes ⚠️ LAST   |
+
+> TC4 and TC5 **depend on** the `EXISTING_USER` account being alive.
+> TC2 **destroys** that account — so it must always run last.
+
+---
+
 ## 🚀 Getting Started
 
 ### Prerequisites
